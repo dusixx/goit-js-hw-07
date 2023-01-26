@@ -1,13 +1,12 @@
 import { galleryItems } from "./gallery-items.js";
 
 const GALLERY_CLASS = "gallery";
-
-// создаем галлерею
 const galleryRef = createGallery(galleryItems, GALLERY_CLASS);
+
 galleryRef.addEventListener("click", onGalleryClick);
 
 ///////////////////////
-// functions
+// Functions
 ///////////////////////
 
 /**
@@ -19,14 +18,14 @@ function onGalleryClick(e) {
   // ловим клик только на изображении
   if (!isGalleryImage(e)) return;
 
-  const modal = getImageModalInstance(e);
+  const modal = createModalInstance(e);
   modal?.show();
 
   window.addEventListener("keydown", onModalEscDown);
 
   // создаем тут, чтобы иметь доступ к modal
-  function onModalEscDown(e) {
-    if (e.code !== "Escape") return;
+  function onModalEscDown({ code }) {
+    if (code !== "Escape") return;
 
     modal?.close();
     window.removeEventListener("keydown", onModalEscDown);
@@ -36,12 +35,12 @@ function onGalleryClick(e) {
 /**
  * Создает инстанс модалки для изображения галлереи
  */
-function getImageModalInstance({ target }) {
+function createModalInstance({ target }) {
   return basicLightbox.create(`<img src="${target.dataset.source}">`);
 }
 
 /**
- * Проверяет, является ли целью события изображение галлереи
+ * Проверяет, сделан ли клик на изображении галлереи
  */
 function isGalleryImage({ target }) {
   return target.classList.contains(`${GALLERY_CLASS}__image`);
@@ -49,10 +48,10 @@ function isGalleryImage({ target }) {
 
 /**
  * Создает разметку галлереи на основе массива items
- * и вставляет ее в элемент с классом galleryClass
+ * и вставляет ее в элемент с классом className
  */
-function createGallery(items, galleryClass) {
-  const galleryRef = document.querySelector(`.${galleryClass}`);
+function createGallery(items, className) {
+  const galleryRef = document.querySelector(`.${className}`);
 
   if (!galleryRef) return null;
 
@@ -60,10 +59,10 @@ function createGallery(items, galleryClass) {
   const markup = items
     .map(
       ({ preview, original, description }) =>
-        `<div class="${galleryClass}__item">
-            <a class="${galleryClass}__link" href="${original}">
+        `<div class="${className}__item">
+            <a class="${className}__link" href="${original}">
                 <img
-                class="${galleryClass}__image"
+                class="${className}__image"
                 src="${preview}"
                 data-source="${original}"
                 alt="${description}"

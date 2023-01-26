@@ -1,7 +1,11 @@
 import { galleryItems } from "./gallery-items.js";
 
+const GALLERY_CLASS = "gallery";
+
 // создаем галлерею
-const galleryRef = createGallery(galleryItems, "gallery");
+const galleryRef = createGallery(galleryItems, GALLERY_CLASS);
+
+// ставим обработчик на клик
 galleryRef.addEventListener("click", onGalleryClick);
 
 ///////////////////////
@@ -15,7 +19,7 @@ function onGalleryClick(e) {
   e.preventDefault();
 
   // должно срабатывать только при клике на изображение
-  if (!e.target.classList.contains("gallery__image")) return;
+  if (!e.target.classList.contains(`${GALLERY_CLASS}__image`)) return;
 
   // создаем инстанс модалки
   const modal = basicLightbox.create(`<img src="${e.target.dataset.source}">`);
@@ -44,16 +48,17 @@ function onGalleryClick(e) {
  */
 function createGallery(items, galleryClass) {
   const galleryRef = document.querySelector(`.${galleryClass}`);
+
   if (!galleryRef) return null;
 
   // создаем разметку
   const markup = items
     .map(
       ({ preview, original, description }) =>
-        `<div class="gallery__item">
-            <a class="gallery__link" href="${original}">
+        `<div class="${galleryClass}__item">
+            <a class="${galleryClass}__link" href="${original}">
                 <img
-                class="gallery__image"
+                class="${galleryClass}__image"
                 src="${preview}"
                 data-source="${original}"
                 alt="${description}"

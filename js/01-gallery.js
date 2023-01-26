@@ -4,8 +4,6 @@ const GALLERY_CLASS = "gallery";
 
 // создаем галлерею
 const galleryRef = createGallery(galleryItems, GALLERY_CLASS);
-
-// ставим обработчик на клик
 galleryRef.addEventListener("click", onGalleryClick);
 
 ///////////////////////
@@ -13,18 +11,14 @@ galleryRef.addEventListener("click", onGalleryClick);
 ///////////////////////
 
 /**
- * Вызывается при клике на div.gallery
+ * Вызывается при клике на родительский контейнер галлереи
  */
 function onGalleryClick(e) {
   e.preventDefault();
 
-  // должно срабатывать только при клике на изображение
-  if (!e.target.classList.contains(`${GALLERY_CLASS}__image`)) return;
+  const modal = createImageModal(e);
+  if (!modal) return;
 
-  // создаем инстанс модалки
-  const modal = basicLightbox.create(`<img src="${e.target.dataset.source}">`);
-  // отображаем ее
-  modal.show();
   // ставим обработчик нажатия на Esc
   window.addEventListener("keydown", onModalEscDown);
 
@@ -36,6 +30,18 @@ function onGalleryClick(e) {
     modal.close();
     // снимаем обработчик
     window.removeEventListener("keydown", onModalEscDown);
+  }
+}
+
+/**
+ * Создает инстанс модалки для изображения галлереи
+ */
+function createImageModal({ target }, showModal = true) {
+  if (target.classList.contains(`${GALLERY_CLASS}__image`)) {
+    const modal = basicLightbox.create(`<img src="${target.dataset.source}">`);
+    if (showModal) modal?.show();
+
+    return modal;
   }
 }
 
@@ -66,7 +72,7 @@ function createGallery(items, galleryClass) {
     .join("");
 
   // рендерим галлерею
-  // можно galleryRef.innerHTML = markup;
+  // можно через galleryRef.innerHTML = markup;
   galleryRef.insertAdjacentHTML("beforeend", markup);
 
   return galleryRef;

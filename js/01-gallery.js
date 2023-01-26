@@ -16,7 +16,7 @@ function onGalleryClick(e) {
   e.preventDefault();
 
   // ловим клик только на изображении
-  if (!isGalleryImage(e)) return;
+  if (!isImageClicked(e)) return;
 
   const modal = createModalInstance(e);
   modal?.show();
@@ -32,17 +32,11 @@ function onGalleryClick(e) {
   }
 }
 
-/**
- * Создает инстанс модалки для изображения
- */
 function createModalInstance({ target }) {
   return basicLightbox.create(`<img src="${target.dataset.source}">`);
 }
 
-/**
- * Проверяет, сделан ли клик на изображении
- */
-function isGalleryImage({ target }) {
+function isImageClicked({ target }) {
   return target.classList.contains(`${GALLERY_CLASS}__image`);
 }
 

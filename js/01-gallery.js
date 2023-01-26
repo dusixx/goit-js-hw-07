@@ -19,8 +19,10 @@ function onGalleryClick(e) {
 
   // создаем инстанс модалки
   const modal = basicLightbox.create(`<img src="${e.target.dataset.source}">`);
+
   // отображаем ее
   modal.show();
+
   // ставим обработчик нажатия на Esc
   window.addEventListener("keydown", onModalEscDown);
 
@@ -30,6 +32,7 @@ function onGalleryClick(e) {
 
     // закрываем моддалку
     modal.close();
+
     // снимаем обработчик
     window.removeEventListener("keydown", onModalEscDown);
   }

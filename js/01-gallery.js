@@ -10,7 +10,7 @@ galleryRef.addEventListener("click", onGalleryClick);
 ///////////////////////
 
 /**
- * Вызывается при клике на родительский контейнер галлереи
+ * Вызывается при клике на родительский контейнер
  */
 function onGalleryClick(e) {
   e.preventDefault();
@@ -21,26 +21,26 @@ function onGalleryClick(e) {
   const modal = createModalInstance(e);
   modal?.show();
 
-  window.addEventListener("keydown", onModalEscDown);
+  window.addEventListener("keydown", onEscapeDown);
 
   // создаем тут, чтобы иметь доступ к modal
-  function onModalEscDown({ code }) {
+  function onEscapeDown({ code }) {
     if (code !== "Escape") return;
 
     modal?.close();
-    window.removeEventListener("keydown", onModalEscDown);
+    window.removeEventListener("keydown", onEscapeDown);
   }
 }
 
 /**
- * Создает инстанс модалки для изображения галлереи
+ * Создает инстанс модалки для изображения
  */
 function createModalInstance({ target }) {
   return basicLightbox.create(`<img src="${target.dataset.source}">`);
 }
 
 /**
- * Проверяет, сделан ли клик на изображении галлереи
+ * Проверяет, сделан ли клик на изображении
  */
 function isGalleryImage({ target }) {
   return target.classList.contains(`${GALLERY_CLASS}__image`);

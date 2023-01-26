@@ -22,11 +22,11 @@ function onGalleryClick(e) {
   // ставим обработчик нажатия на Esc
   window.addEventListener("keydown", onModalEscDown);
 
-  // создаем тут, чтобы иметь доступ к инстансу
+  // создаем тут, чтобы иметь доступ к modal
   function onModalEscDown(e) {
     if (e.code !== "Escape") return;
 
-    // закрываем моддалку
+    // закрываем модалку
     modal.close();
     // снимаем обработчик
     window.removeEventListener("keydown", onModalEscDown);
@@ -35,6 +35,7 @@ function onGalleryClick(e) {
 
 /**
  * Создает инстанс модалки для изображения галлереи
+ * Возвращает ссылку на инстанс
  */
 function createImageModal({ target }, showModal = true) {
   if (target.classList.contains(`${GALLERY_CLASS}__image`)) {
@@ -48,6 +49,7 @@ function createImageModal({ target }, showModal = true) {
 /**
  * Создает разметку галлереи на основе массива items
  * и вставляет ее в элемент с классом galleryClass
+ * Возвращает ссылку на контейнер
  */
 function createGallery(items, galleryClass) {
   const galleryRef = document.querySelector(`.${galleryClass}`);

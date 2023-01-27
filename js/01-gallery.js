@@ -16,7 +16,7 @@ function onGalleryClick(e) {
   e.preventDefault();
 
   // ловим клик только на изображении
-  if (!isImageClicked(e)) return;
+  if (e.target.nodeName !== "IMG") return;
 
   const modal = createModalInstance(e);
   modal?.show();
@@ -34,10 +34,6 @@ function onGalleryClick(e) {
 
 function createModalInstance({ target }) {
   return basicLightbox.create(`<img src="${target.dataset.source}">`);
-}
-
-function isImageClicked({ target }) {
-  return target.classList.contains(`${GALLERY_CLASS}__image`);
 }
 
 /**

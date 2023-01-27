@@ -3,14 +3,9 @@ import { galleryItems } from "./gallery-items.js";
 const GALLERY_CLASS = "gallery";
 const galleryRef = createGallery(galleryItems, GALLERY_CLASS);
 
-// многие опции прописаны по умолчанию -
-// тем не менее укажем их явно для наглядности
 const lightbox = new SimpleLightbox(".gallery a", {
   captions: true,
-  captionSelector: "img",
-  captionType: "attr",
   captionsData: "alt",
-  captionPosition: "bottom",
   captionDelay: 250,
 });
 

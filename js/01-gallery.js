@@ -51,12 +51,11 @@ function createGallery(items, className) {
       ({ preview, original, description }) =>
         `<div class="${className}__item">
             <a class="${className}__link" href="${original}">
-                <img
-                class="${className}__image"
+              <img class="${className}__image"
                 src="${preview}"
                 data-source="${original}"
                 alt="${description}"
-                />
+              />
             </a>
         </div>`,
     )

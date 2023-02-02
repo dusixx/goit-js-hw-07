@@ -1,9 +1,9 @@
 import { galleryItems } from "./gallery-items.js";
 
 const GALLERY_CLASS = "gallery";
-const galleryRef = createGallery(galleryItems, GALLERY_CLASS);
+createGallery(galleryItems, GALLERY_CLASS);
 
-const lightbox = new SimpleLightbox(".gallery a", {
+new SimpleLightbox(".gallery a", {
   captions: true,
   captionsData: "alt",
   captionDelay: 250,

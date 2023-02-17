@@ -2,24 +2,19 @@ import { galleryItems } from "./gallery-items.js";
 
 createGallery(galleryItems, "gallery")?.addEventListener("click", e => {
   e.preventDefault();
+
   if (e.target.nodeName !== "IMG") return;
+  const modal = basicLightbox.create(`<img src="${e.target.dataset.source}">`);
 
-  const modal = createModalInstance(e);
   modal?.show();
-
   window.addEventListener("keydown", onEscapeDown);
 
   function onEscapeDown({ code }) {
     if (code !== "Escape") return;
-
     modal?.close();
     window.removeEventListener("keydown", onEscapeDown);
   }
 });
-
-function createModalInstance({ target }) {
-  return basicLightbox.create(`<img src="${target.dataset.source}">`);
-}
 
 function createGallery(items, className) {
   const galleryRef = document.querySelector(`.${className}`);

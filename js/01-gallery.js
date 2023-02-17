@@ -8,7 +8,7 @@ createGallery(galleryItems, "gallery")?.addEventListener("click", e => {
   modal?.show();
 
   window.addEventListener("keydown", onEscapeDown);
-  // создаем тут, чтобы иметь доступ к modal
+
   function onEscapeDown({ code }) {
     if (code !== "Escape") return;
 

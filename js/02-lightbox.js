@@ -10,7 +10,6 @@ new SimpleLightbox(".gallery a", {
 
 function createGallery(items, className) {
   const galleryRef = document.querySelector(`.${className}`);
-
   if (!galleryRef) return null;
 
   galleryRef.insertAdjacentHTML(

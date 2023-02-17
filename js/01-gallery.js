@@ -18,13 +18,14 @@ createGallery(galleryItems, "gallery")?.addEventListener("click", e => {
 
 function createGallery(items, className) {
   const galleryRef = document.querySelector(`.${className}`);
-
   if (!galleryRef) return null;
 
-  const markup = items
-    .map(
-      ({ preview, original, description }) =>
-        `<div class="${className}__item">
+  galleryRef.insertAdjacentHTML(
+    "beforeend",
+    items
+      .map(
+        ({ preview, original, description }) =>
+          `<div class="${className}__item">
             <a class="${className}__link" href="${original}">
               <img class="${className}__image"
                 src="${preview}"
@@ -33,10 +34,9 @@ function createGallery(items, className) {
               />
             </a>
         </div>`,
-    )
-    .join("");
-
-  galleryRef.insertAdjacentHTML("beforeend", markup);
+      )
+      .join(""),
+  );
 
   return galleryRef;
 }

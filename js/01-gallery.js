@@ -1,6 +1,8 @@
 import { galleryItems } from "./gallery-items.js";
 
-createGallery(galleryItems, "gallery")?.addEventListener("click", e => {
+createGallery(galleryItems, "gallery")?.addEventListener("click", onGalleryClick);
+
+function onGalleryClick(e) {
   e.preventDefault();
 
   if (e.target.nodeName !== "IMG") return;
@@ -14,7 +16,7 @@ createGallery(galleryItems, "gallery")?.addEventListener("click", e => {
     modal?.close();
     window.removeEventListener("keydown", onEscapeDown);
   }
-});
+}
 
 function createGallery(items, className) {
   const galleryRef = document.querySelector(`.${className}`);

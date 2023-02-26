@@ -5,8 +5,8 @@ createGallery(galleryItems, "gallery")?.addEventListener("click", onGalleryClick
 function onGalleryClick(e) {
   e.preventDefault();
 
-  if (e.target.nodeName !== "IMG") return;
-  const modal = basicLightbox.create(`<img src="${e.target.dataset.source}">`);
+  if (!isImage(e)) return;
+  const modal = getBasicLightboxInstance(e);
 
   modal?.show();
   window.addEventListener("keydown", onEscapeDown);
@@ -16,6 +16,14 @@ function onGalleryClick(e) {
     modal?.close();
     window.removeEventListener("keydown", onEscapeDown);
   }
+}
+
+function getBasicLightboxInstance({ target: { dataset } }) {
+  return basicLightbox.create(`<img src="${dataset.source}">`);
+}
+
+function isImage({ target: { nodeName } }) {
+  return nodeName === "IMG";
 }
 
 function createGallery(items, className) {

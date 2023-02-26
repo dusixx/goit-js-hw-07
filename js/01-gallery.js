@@ -3,27 +3,25 @@ import { galleryItems } from "./gallery-items.js";
 createGallery(galleryItems, "gallery")?.addEventListener("click", onGalleryClick);
 
 function onGalleryClick(e) {
+  if (e.target.nodeName !== "IMG") return;
   e.preventDefault();
 
-  if (!isImage(e)) return;
   const modal = getBasicLightboxInstance(e);
+  if (!modal) return;
 
-  modal?.show();
+  const onEscapeDown = ({ code }) => {
+    if (code === "Escape") {
+      modal.close();
+      window.removeEventListener("keydown", onEscapeDown);
+    }
+  };
+
+  modal.show();
   window.addEventListener("keydown", onEscapeDown);
-
-  function onEscapeDown({ code }) {
-    if (code !== "Escape") return;
-    modal?.close();
-    window.removeEventListener("keydown", onEscapeDown);
-  }
 }
 
 function getBasicLightboxInstance({ target: { dataset } }) {
   return basicLightbox.create(`<img src="${dataset.source}">`);
-}
-
-function isImage({ target: { nodeName } }) {
-  return nodeName === "IMG";
 }
 
 function createGallery(items, className) {

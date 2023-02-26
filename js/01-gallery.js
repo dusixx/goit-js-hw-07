@@ -6,7 +6,7 @@ function onGalleryClick(e) {
   if (e.target.nodeName !== "IMG") return;
   e.preventDefault();
 
-  const modal = createBLInstance(e);
+  const modal = createModal(e);
   if (!modal) return;
 
   const onEscapeDown = ({ code }) => {
@@ -19,7 +19,7 @@ function onGalleryClick(e) {
   modal.show();
 }
 
-function createBLInstance({ target: { dataset } }) {
+function createModal({ target: { dataset } }) {
   return basicLightbox.create(`<img src="${dataset.source}">`);
 }
 

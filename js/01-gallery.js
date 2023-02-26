@@ -10,10 +10,9 @@ function onGalleryClick(e) {
   if (!modal) return;
 
   const onEscapeDown = ({ code }) => {
-    if (code === "Escape") {
-      modal.close();
-      window.removeEventListener("keydown", onEscapeDown);
-    }
+    if (code !== "Escape") return;
+    window.removeEventListener("keydown", onEscapeDown);
+    modal.close();
   };
 
   window.addEventListener("keydown", onEscapeDown);

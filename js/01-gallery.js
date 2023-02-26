@@ -11,11 +11,11 @@ function onGalleryClick(e) {
 
   const onEscapeDown = ({ code }) => {
     if (code !== "Escape") return;
-    window.removeEventListener("keydown", onEscapeDown);
+    document.removeEventListener("keydown", onEscapeDown);
     modal.close();
   };
 
-  window.addEventListener("keydown", onEscapeDown);
+  document.addEventListener("keydown", onEscapeDown);
   modal.show();
 }
 

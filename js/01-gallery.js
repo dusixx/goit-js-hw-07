@@ -16,8 +16,8 @@ function onGalleryClick(e) {
     }
   };
 
-  modal.show();
   window.addEventListener("keydown", onEscapeDown);
+  modal.show();
 }
 
 function getBasicLightboxInstance({ target: { dataset } }) {

@@ -17,9 +17,13 @@ function createGallery(items, className) {
     items
       .map(
         ({ preview, original, description }) =>
-          `<a class="${className}__item" href="${original}">
-            <img class="${className}__image" src="${preview}" alt="${description}" />
-        </a>`,
+          `<li class="${className}__item" >
+            <a href="${original}">
+              <img class="${className}__image" 
+                src="${preview}" alt="${description}"
+              />
+            </a>
+          </li>`,
       )
       .join(""),
   );

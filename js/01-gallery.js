@@ -4,15 +4,22 @@ createGallery(".gallery", galleryItems)?.addEventListener("click", e => {
   if (e.target.nodeName !== "IMG") return;
   e.preventDefault();
 
-  basicLightbox
-    .create(`<img src="${e.target.dataset.source}">`, {
-      onShow: mdl =>
-        document.addEventListener("keydown", e => e.code === "Escape" && mdl.close(), {
-          once: true,
-        }),
-    })
-    .show();
+  const modal = createModal(e);
+  if (!modal) return;
+
+  const onEscapeDown = ({ code }) => {
+    if (code !== "Escape") return;
+    document.removeEventListener("keydown", onEscapeDown);
+    modal.close();
+  };
+
+  document.addEventListener("keydown", onEscapeDown);
+  modal.show();
 });
+
+function createModal({ target: { dataset } }) {
+  return basicLightbox.create(`<img src="${dataset.source}">`);
+}
 
 function createGallery(classSelector, items) {
   const galleryRef = document.querySelector(classSelector);

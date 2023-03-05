@@ -6,21 +6,18 @@ function onGalleryClick(e) {
   if (e.target.nodeName !== "IMG") return;
   e.preventDefault();
 
-  const modal = createModal(e);
-  if (!modal) return;
+  const modal = createModal(e, {
+    onShow: () =>
+      document.addEventListener("keydown", e => e.code === "Escape" && modal.close(), {
+        once: true,
+      }),
+  });
 
-  const onEscapeDown = ({ code }) => {
-    if (code !== "Escape") return;
-    document.removeEventListener("keydown", onEscapeDown);
-    modal.close();
-  };
-
-  document.addEventListener("keydown", onEscapeDown);
   modal.show();
 }
 
-function createModal({ target: { dataset } }) {
-  return basicLightbox.create(`<img src="${dataset.source}">`);
+function createModal({ target: { dataset } }, opts) {
+  return basicLightbox.create(`<img src="${dataset.source}">`, opts);
 }
 
 function createGallery(items, className) {

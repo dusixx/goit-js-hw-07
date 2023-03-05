@@ -1,6 +1,6 @@
 import { galleryItems } from "./gallery-items.js";
 
-createGallery(galleryItems, "gallery")?.addEventListener("click", e => {
+createGallery(".gallery", galleryItems)?.addEventListener("click", e => {
   if (e.target.nodeName !== "IMG") return;
   e.preventDefault();
 
@@ -14,9 +14,11 @@ createGallery(galleryItems, "gallery")?.addEventListener("click", e => {
     .show();
 });
 
-function createGallery(items, className) {
-  const galleryRef = document.querySelector(`.${className}`);
+function createGallery(classSelector, items) {
+  const galleryRef = document.querySelector(classSelector);
   if (!galleryRef) return null;
+
+  const className = classSelector.slice(1);
 
   galleryRef.insertAdjacentHTML(
     "beforeend",

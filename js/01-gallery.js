@@ -1,24 +1,18 @@
 import { galleryItems } from "./gallery-items.js";
 
-createGallery(galleryItems, "gallery")?.addEventListener("click", onGalleryClick);
-
-function onGalleryClick(e) {
+createGallery(galleryItems, "gallery")?.addEventListener("click", e => {
   if (e.target.nodeName !== "IMG") return;
   e.preventDefault();
 
-  const modal = createModal(e, {
-    onShow: () =>
-      document.addEventListener("keydown", e => e.code === "Escape" && modal.close(), {
-        once: true,
-      }),
-  });
-
-  modal.show();
-}
-
-function createModal({ target: { dataset } }, opts) {
-  return basicLightbox.create(`<img src="${dataset.source}">`, opts);
-}
+  basicLightbox
+    .create(`<img src="${e.target.dataset.source}">`, {
+      onShow: mdl =>
+        document.addEventListener("keydown", e => e.code === "Escape" && mdl.close(), {
+          once: true,
+        }),
+    })
+    .show();
+});
 
 function createGallery(items, className) {
   const galleryRef = document.querySelector(`.${className}`);
